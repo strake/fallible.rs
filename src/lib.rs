@@ -2,6 +2,8 @@
 
 extern crate void;
 
+pub mod iter;
+
 use void::Void;
 
 pub trait TryClone: Sized {
