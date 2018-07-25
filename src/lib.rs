@@ -37,3 +37,15 @@ impl<A, T: From<A>> TryFrom<A> for T {
     #[inline(always)]
     fn try_from(a: A) -> Result<Self, Self::Error> { Ok(Self::from(a)) }
 }
+
+pub trait TryInto<A> {
+    type Error;
+    fn try_into(self) -> Result<A, Self::Error>;
+}
+
+impl<A: TryFrom<T>, T> TryInto<A> for T {
+    type Error = A::Error;
+
+    #[inline(always)]
+    fn try_into(self) -> Result<A, Self::Error> { A::try_from(self) }
+}
